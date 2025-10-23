@@ -2,6 +2,18 @@ import numpy as np
 import random
 import time
 
+# Función que presenta el juego
+def presentacion():
+    print("*************************************")
+    print("*                                   *")
+    print("* ¡Bienvenido a Hundir la Flota!    *")
+    print("*                                   *")
+    print("*************************************\n")
+    print("Instrucciones básicas:")
+    print("- Tu objetivo es hundir todos los barcos de tu rival")
+    print("- Introduce las coordenadas para disparar en formato x,y")
+    print("- X indica un acierto, # indica agua, y _ un espacio sin disparar\n")
+
 # Función para crear matriz del tablero
 def tablero():
     matriz_tablero = np.full((10,10), "_")
@@ -12,10 +24,8 @@ def crear_tablero_jugador():
 
     tablero_jugador = tablero()
 
-    barcos_plantilla = [
-        [[0,0], [0,0]], 
-        [[0,0], [0,0]]
-    ]
+    barcos_plantilla = [[[0,0], [0,0]], 
+                        [[0,0], [0,0], [0,0]]]
 
     barcos_jugador_total = []
 
@@ -86,10 +96,9 @@ def crear_tablero_jugador():
 def crear_tablero_rival():
     tablero_rival = tablero()
 
-    barcos_plantilla = [
-        [[0,0], [0,0]], 
-        [[0,0], [0,0]]
-    ]
+    barcos_plantilla = [[[0,0], [0,0]], 
+                        [[0,0], [0,0], [0,0]]]
+
 
     barcos_rival_total = []
 
@@ -182,18 +191,19 @@ def disparar_automatizado(tablero_jugador_01, tablero_jugador_02, fila, columna)
 # Función que gestiona el inicio de la partida
 def inicio_partida():
     while True:
-        input("Pulsa Intro para tirar tus dados...")
+        input("Pulsa Intro para tirar tus dados...\n" \
+        "El jugador con la puntuación mas alta iniciará la partida")
 
-        num_inicio_jugador = random.randint(1, 101)
+        num_inicio_jugador = random.randint(1, 12)
 
         print("Has sacado el número", num_inicio_jugador, "espera a que tu rival lance los suyos...")
 
         time.sleep(4)
 
-        num_inicio_rival = random.randint(1, 101)
+        num_inicio_rival = random.randint(1, 12)
 
         if num_inicio_jugador > num_inicio_rival:
-            print("Tu rival ha sacado el número ", num_inicio_rival, ", empiezas jugando tú.")
+            print("Tu rival ha sacado el número", num_inicio_rival, ", empiezas jugando tú.")
             turno = "jugador"
             return turno
         elif num_inicio_jugador < num_inicio_rival:
@@ -223,7 +233,7 @@ def jugar_partida(
         # TURNO DEL JUGADOR
         if turno == "jugador":
             print("\n*** Tu turno ***")
-            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato (x, y)...")
+            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato x,y...\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
             try:
@@ -282,6 +292,8 @@ def jugar_partida(
 
         # TURNO DEL RIVAL (EL ORDENADOR)
         if turno == "rival":
+            time.sleep(5)
+
             print("\n*** Turno de tu rival ***")
 
             while True:

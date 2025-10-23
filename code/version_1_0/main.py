@@ -1,5 +1,7 @@
 import funciones as f
 
+f.presentacion()
+
 # Crear tableros y barcos
 tablero_jugador, barcos_jugador_total = f.crear_tablero_jugador()
 tablero_rival, barcos_rival_total = f.crear_tablero_rival()
