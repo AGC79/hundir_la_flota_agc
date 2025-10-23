@@ -1,5 +1,6 @@
 import funciones as f
 
+print()
 f.presentacion()
 
 # Crear tableros y barcos

@@ -4,15 +4,18 @@ import time
 
 # Función que presenta el juego
 def presentacion():
-    print("*************************************")
-    print("*                                   *")
-    print("* ¡Bienvenido a Hundir la Flota!    *")
-    print("*                                   *")
-    print("*************************************\n")
-    print("Instrucciones básicas:")
+    print("\t*************************************")
+    print("\t*                                   *")
+    print("\t*  ¡Bienvenido a Hundir la Flota!   *")
+    print("\t*                                   *")
+    print("\t*************************************\n")
+    print("\t*******Instrucciones básicas:*******")
+    print("-" * 65)
     print("- Tu objetivo es hundir todos los barcos de tu rival")
     print("- Introduce las coordenadas para disparar en formato x,y")
-    print("- X indica un acierto, # indica agua, y _ un espacio sin disparar\n")
+    print("- Las coordenadas van de 0 a 9 tanto en filas como en columnas")
+    print("- X indica un acierto, # indica agua y '_' un espacio sin disparar\n")
+    print("-" * 65)
 
 # Función para crear matriz del tablero
 def tablero():
@@ -196,6 +199,7 @@ def inicio_partida():
 
         num_inicio_jugador = random.randint(1, 12)
 
+        print()
         print("Has sacado el número", num_inicio_jugador, "espera a que tu rival lance los suyos...")
 
         time.sleep(4)
@@ -203,14 +207,17 @@ def inicio_partida():
         num_inicio_rival = random.randint(1, 12)
 
         if num_inicio_jugador > num_inicio_rival:
+            print()
             print("Tu rival ha sacado el número", num_inicio_rival, ", empiezas jugando tú.")
             turno = "jugador"
             return turno
         elif num_inicio_jugador < num_inicio_rival:
+            print()
             print("Tu rival ha sacado el número ", num_inicio_rival, ", espera a que dispare primero.")
             turno = "rival"
             return turno
         else:
+            print()
             print("Tu rival ha sacado el número ", num_inicio_rival, ", es el mismo que el tuyo asi que teneis que lanzar otra vez los dados.")
 
 # Función que gestiona el desarrollo de la partida
@@ -233,13 +240,14 @@ def jugar_partida(
         # TURNO DEL JUGADOR
         if turno == "jugador":
             print("\n*** Tu turno ***")
-            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato x,y...\n")
+            disparo_jugador = input("Dispara introduciendo coordenadas con formato x,y\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
             try:
                 x, y = disparo_jugador.split(",")
                 x, y = int(x), int(y)
             except:
+                print()
                 print("Formato de disparo no válido.")
                 continue
 
@@ -247,6 +255,7 @@ def jugar_partida(
 
             if resultado == "Tocado":
                 disparos_acertados_jugador.append((fila, columna))
+                print()
                 print("Tu disparo ha tenido éxito, vuelve a disparar.")
                 print()
                 print(tablero_rival_disparos)
@@ -265,26 +274,31 @@ def jugar_partida(
 
                     if hundido and barco not in barcos_hundidos_jugador:
                         barcos_hundidos_jugador.append(barco)
-                        print("¡Un barco enemigo de eslora", len(barco), " ha sido hundido!")
+                        print()
+                        print("¡Un barco enemigo de eslora", len(barco), "ha sido hundido!")
                         print()
                         print(tablero_rival_disparos)
 
                 # Comprobar si todos los barcos han sido hundidos
                 if len(barcos_hundidos_jugador) == len(barcos_rival_total):
+                    print()
                     print("\n¡Todos los barcos enemigos han sido hundidos! ¡Has ganado!")
                     print()
                     print(tablero_rival_disparos)
+                    print()
                     break
 
                 continue  # sigue disparando
 
             elif resultado == "Agua":
+                print()
                 print("Has fallado. Pasa el turno a tu rival.")
                 print()
                 print(tablero_rival_disparos)
                 turno = "rival"
 
             else:  # Repetir
+                print()
                 print("Ya has disparado aquí, vuelve a disparar.")
                 print()
                 print(tablero_rival_disparos)
@@ -306,6 +320,7 @@ def jugar_partida(
 
             if resultado == "Tocado":
                 disparos_acertados_rival.append((fila, columna))
+                print()
                 print("El disparo de tu rival ha tenido éxito, volverá a disparar.")
                 print()
                 print(tablero_jugador_disparos)
@@ -324,21 +339,25 @@ def jugar_partida(
 
                     if hundido and barco not in barcos_hundidos_rival:
                         barcos_hundidos_rival.append(barco)
+                        print()
                         print("¡Barco hundido de eslora", len(barco), "!")
                         print()
                         print(tablero_jugador_disparos)
 
                 # Comprobar si todos los barcos han sido hundidos
                 if len(barcos_hundidos_rival) == len(barcos_jugador_total):
+                    print()
                     print("\n¡Todos tus barcos han sido hundidos! ¡Has perdido!")
                     print()
                     print(tablero_jugador_disparos)
+                    print()
                     break
 
                 continue  
 
             elif resultado == "Agua":
                 disparos_acertados_rival.append((fila, columna))
+                print()
                 print("Tu rival ha fallado. Es tu turno.")
                 print()
                 print(tablero_jugador_disparos)

@@ -12,6 +12,7 @@ def presentacion():
     print("Instrucciones básicas:")
     print("- Tu objetivo es hundir todos los barcos de tu rival")
     print("- Introduce las coordenadas para disparar en formato x,y")
+    print("- Las coordenadas van de 0 a 9 tanto en filas como en columnas.")
     print("- X indica un acierto, # indica agua, y _ un espacio sin disparar\n")
 
 # Función para crear matriz del tablero
@@ -203,6 +204,7 @@ def inicio_partida():
 
         num_inicio_jugador = random.randint(1, 12)
 
+        print()
         print("Has sacado el número", num_inicio_jugador, "espera a que tu rival lance los suyos...")
 
         time.sleep(4)
@@ -210,10 +212,12 @@ def inicio_partida():
         num_inicio_rival = random.randint(1, 12)
 
         if num_inicio_jugador > num_inicio_rival:
+            print()
             print("Tu rival ha sacado el número ", num_inicio_rival, ", empiezas jugando tú.")
             turno = "jugador"
             return turno
         elif num_inicio_jugador < num_inicio_rival:
+            print()
             print("Tu rival ha sacado el número ", num_inicio_rival, ", espera a que dispare primero.")
             turno = "rival"
             return turno
@@ -247,6 +251,7 @@ def jugar_partida(
                 x, y = disparo_jugador.split(",")
                 x, y = int(x), int(y)
             except:
+                print()
                 print("Formato de disparo no válido.")
                 continue
 
