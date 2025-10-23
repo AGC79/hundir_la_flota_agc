@@ -220,7 +220,7 @@ def inicio_partida():
             return turno
         elif num_inicio_jugador < num_inicio_rival:
             print()
-            print("Tu rival ha sacado el número ", num_inicio_rival, ", espera a que dispare primero.")
+            print("Tu rival ha sacado el número", num_inicio_rival, ",espera a que dispare primero.")
             turno = "rival"
             return turno
         else:
