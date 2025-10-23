@@ -4,16 +4,18 @@ import time
 
 # Función que presenta el juego
 def presentacion():
-    print("*************************************")
-    print("*                                   *")
-    print("* ¡Bienvenido a Hundir la Flota!    *")
-    print("*                                   *")
-    print("*************************************\n")
-    print("Instrucciones básicas:")
+    print("\t*************************************")
+    print("\t*                                   *")
+    print("\t*  ¡Bienvenido a Hundir la Flota!   *")
+    print("\t*                                   *")
+    print("\t*************************************\n")
+    print("\t*******Instrucciones básicas:*******")
+    print("-" * 65)
     print("- Tu objetivo es hundir todos los barcos de tu rival")
     print("- Introduce las coordenadas para disparar en formato x,y")
-    print("- Las coordenadas van de 0 a 9 tanto en filas como en columnas.")
-    print("- X indica un acierto, # indica agua, y _ un espacio sin disparar\n")
+    print("- Las coordenadas van de 0 a 9 tanto en filas como en columnas")
+    print("- X indica un acierto, # indica agua y '_' un espacio sin disparar\n")
+    print("-" * 65)
 
 # Función para crear matriz del tablero
 def tablero():
@@ -244,7 +246,7 @@ def jugar_partida(
         # TURNO DEL JUGADOR
         if turno == "jugador":
             print("\n*** Tu turno ***")
-            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato x,y...\n")
+            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato x,y\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
             try:
