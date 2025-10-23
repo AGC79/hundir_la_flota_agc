@@ -246,7 +246,7 @@ def jugar_partida(
         # TURNO DEL JUGADOR
         if turno == "jugador":
             print("\n*** Tu turno ***")
-            disparo_jugador = input("Dispara introduciendo coordenadas en el siguiente formato x,y\n")
+            disparo_jugador = input("Dispara introduciendo coordenadas con el formato x,y\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
             try:
