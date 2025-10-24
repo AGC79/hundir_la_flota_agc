@@ -81,7 +81,7 @@ def crear_tablero_jugador():
                 barcos_jugador.append([fila_o, columna_o])
 
             # print(barcos_jugador)
-            solapamiento = False
+            solapamiento = False # bandera
             for fila, columna in barcos_jugador:
                 if tablero_jugador[fila, columna] == "O":
                     solapamiento= True # Como se encuentra solapamiento, se sale del bucle for y se comienza de nuevo el while
@@ -254,24 +254,25 @@ def jugar_partida(
             resultado, fila, columna = disparar(tablero_rival, tablero_rival_disparos, x, y)
 
             if resultado == "Tocado":
-                disparos_acertados_jugador.append((fila, columna))
+                disparos_acertados_jugador.append([fila, columna])
                 print()
                 print("Tu disparo ha tenido éxito, vuelve a disparar.")
                 print()
                 print(tablero_rival_disparos)
 
                 # Comprobar si algún barco se ha hundido
+                # Se recorre la lista de barcos creada al colocar los barcos en el tablero rival
                 for barco in barcos_rival_total:
-                    coords_barco = []
-                    for coordenada in barco:
-                        coords_barco.append(tuple(coordenada))
-
-                    hundido = True
-                    for c in coords_barco:
-                        if c not in disparos_acertados_jugador:
+                    hundido = True # bandera, se empieza asumiendo que el barco se ha hundido
+                    for coord in barco:
+                        # Se comparan los elementos de la lista de barcos rival, con la lista de disparos acertados
+                        # Si algno no esta se sale del bucle for
+                        if coord not in disparos_acertados_jugador:
                             hundido = False
                             break
-
+                    # Aquí hundido es True y el barco aún no esta en la lista de barcos hundidos
+                    # Se revisa que el barco aún no esta porque al hundir un barco se sigue disparando
+                    # Entonces se vuelve a revisar la lista y se vuelve a imprimir el mensaje si no se comprueba esta condición         
                     if hundido and barco not in barcos_hundidos_jugador:
                         barcos_hundidos_jugador.append(barco)
                         print()
@@ -319,7 +320,7 @@ def jugar_partida(
             resultado, fila, columna = disparar_automatizado(tablero_jugador, tablero_jugador_disparos, x, y)
 
             if resultado == "Tocado":
-                disparos_acertados_rival.append((fila, columna))
+                disparos_acertados_rival.append([fila, columna])
                 print()
                 print("El disparo de tu rival ha tenido éxito, volverá a disparar.")
                 print()
@@ -327,13 +328,9 @@ def jugar_partida(
 
                 # Comprobar si algún barco se ha hundido
                 for barco in barcos_jugador_total:
-                    coords_barco = []
-                    for coordenada in barco:
-                        coords_barco.append(tuple(coordenada))
-
                     hundido = True
-                    for c in coords_barco:
-                        if c not in disparos_acertados_rival:
+                    for coord in barco:
+                        if coord not in disparos_acertados_rival:
                             hundido = False
                             break
 
@@ -356,7 +353,7 @@ def jugar_partida(
                 continue  
 
             elif resultado == "Agua":
-                disparos_acertados_rival.append((fila, columna))
+                disparos_acertados_rival.append([fila, columna])
                 print()
                 print("Tu rival ha fallado. Es tu turno.")
                 print()
