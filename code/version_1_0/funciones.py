@@ -207,7 +207,7 @@ def inicio_partida():
         num_inicio_jugador = random.randint(1, 12)
 
         print()
-        print("Has sacado el número", num_inicio_jugador, "espera a que tu rival lance los suyos...")
+        print("Has sacado el número",num_inicio_jugador, ", espera a que tu rival lance los suyos...")
 
         time.sleep(4)
 
@@ -215,16 +215,16 @@ def inicio_partida():
 
         if num_inicio_jugador > num_inicio_rival:
             print()
-            print("Tu rival ha sacado el número ", num_inicio_rival, ", empiezas jugando tú.")
+            print(f"Tu rival ha sacado el número {num_inicio_rival}, empiezas jugando tú.")
             turno = "jugador"
             return turno
         elif num_inicio_jugador < num_inicio_rival:
             print()
-            print("Tu rival ha sacado el número", num_inicio_rival, ",espera a que dispare primero.")
+            print(f"Tu rival ha sacado el número {num_inicio_rival}, espera a que dispare primero.")
             turno = "rival"
             return turno
         else:
-            print("Tu rival ha sacado el número ", num_inicio_rival, ", es el mismo que el tuyo asi que teneis que lanzar otra vez los dados.")
+             print(f"Tu rival ha sacado el número {num_inicio_rival}, es el mismo que el tuyo asi que teneis que lanzar otra vez los dados.")
 
 # Función que gestiona el desarrollo de la partida
 def jugar_partida(
@@ -279,7 +279,7 @@ def jugar_partida(
 
                     if hundido and barco not in barcos_hundidos_jugador:
                         barcos_hundidos_jugador.append(barco)
-                        print("¡Un barco enemigo de eslora", len(barco), " ha sido hundido!")
+                        print(f"¡Un barco enemigo de eslora {len(barco)} ha sido hundido!")
                         print()
                         print(tablero_rival_disparos)
 
