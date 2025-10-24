@@ -1,1 +1,3 @@
-# hundir_la_flota_agc
+# JUEGO HUNDIR LA FLOTA
+
+Desarrollo del famoso juego de hundir la flota
