@@ -62,7 +62,7 @@ def crear_tablero_jugador():
                 fila = random.randint(0, 9)
                 columna = random.randint(eslora - 1, 9)
             
-            barcos_jugador.append([fila, columna]) # [3,5]
+            barcos_jugador.append([fila, columna]) # Se almacena la coordenada incial[3,5]
             
             # Resto de casillas según la orientación
             # j es el elemento de la eslora iterado
@@ -173,12 +173,12 @@ def crear_tablero_rival():
 
 # Función que gestiona los disparos manuales del jugador, parametros pasados en llamada a funcion en la función jugar_partida
 def disparar(tablero_rival_01, tablero_rival_02, fila, columna):
-    if tablero_rival_01[fila, columna] == "O":
+    if tablero_rival_02[fila, columna] in ("X", "#"):
+        return "Repetir", None, None
+    elif tablero_rival_01[fila, columna] == "O":
         print("Tocado")
         tablero_rival_02[fila, columna] = "X"
         return "Tocado", fila, columna
-    elif tablero_rival_02[fila, columna] in ("X", "#"):
-        return "Repetir", None, None
     else:
         print("Agua")
         tablero_rival_02[fila, columna] = "#"
@@ -252,10 +252,10 @@ def jugar_partida(
         # TURNO DEL JUGADOR
         if turno == "jugador":
             print("\n*** Tu turno ***")
-            disparo_jugador = input("Dispara introduciendo coordenadas con formato x,y\n")
+            disparo_jugador = input("Dispara introduciendo coordenadas con formato fila, columna: x,y\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
-            # Aquí se captura la excepctión en caso de que las coordenadas introducidas no cumplan con el formato pedido
+            # Aquí se captura la excepción en caso de que las coordenadas introducidas no cumplan con el formato pedido
             try:
                 x, y = disparo_jugador.split(",")
                 x, y = int(x), int(y)
@@ -317,7 +317,7 @@ def jugar_partida(
                 print("Ya has disparado aquí, vuelve a disparar.")
                 print()
                 print(tablero_rival_disparos)
-                continue # sigue disparando, el codigo que sigue no se ejecuta y se vuelve a iniciar el while
+                continue
 
         # TURNO DEL RIVAL (EL ORDENADOR)
         if turno == "rival":
