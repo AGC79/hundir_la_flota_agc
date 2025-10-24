@@ -36,6 +36,7 @@ def crear_tablero_jugador():
         eslora = len(barcos_plantilla[i])
         orientacion = random.choice(["N", "S", "E", "W"])
         
+        # Bucle infinito hasta que se cumple una condición que lo rompe con un break
         while True:
 
             # Lista para guardar coordenadas. Si hay solapamiento, se reinicia el while y se vuelve a generar otra
@@ -59,13 +60,13 @@ def crear_tablero_jugador():
                 fila = random.randint(0, 9)
                 columna = random.randint(eslora - 1, 9)
             
-            barcos_jugador.append([fila, columna])
+            barcos_jugador.append([fila, columna]) # [3,5]
             
             # Resto de casillas según la orientación
             # j es el elemento de la eslora iterado
             # el elemento de la posición 0 de la eslora de los barcos ya se ha asignado, la iteración se realiza sobre el rango entre el elemento 1 de la eslora de cada barco
             # i longitud de la eslora (sin contar el ultimo numero)
-            for j in range(1, eslora): 
+            for j in range(1, eslora): # Ejemplo, para barco de eslora 4 (0, 1, 2, 3) se recorre (1, 2, 3)
                 if orientacion == "N":
                     fila_o = fila - j # [2,5][1,5][0,5]
                     columna_o = columna
@@ -84,7 +85,7 @@ def crear_tablero_jugador():
             solapamiento = False # bandera
             for fila, columna in barcos_jugador:
                 if tablero_jugador[fila, columna] == "O":
-                    solapamiento= True # Como se encuentra solapamiento, se sale del bucle for y se comienza de nuevo el while
+                    solapamiento= True # Como se encuentra solapamiento, se sale del bucle for y se comienza de nuevo el while para volver a intentar colocar barcos
                     break 
             if not solapamiento:
                 for fila, columna in barcos_jugador:
@@ -109,6 +110,7 @@ def crear_tablero_rival():
         eslora = len(barcos_plantilla[i])
         orientacion = random.choice(["N", "S", "E", "W"])
         
+        # Bucle infinito hasta que se cumple una condición que lo rompe con un break
         while True:
 
             # Lista para guardar coordenadas. Si hay solapamiento, se reinicia el while y se vuelve a generar otra
@@ -132,7 +134,7 @@ def crear_tablero_rival():
                 fila = random.randint(0, 9)
                 columna = random.randint(eslora - 1, 9)
             
-            barcos_rival.append([fila, columna])
+            barcos_rival.append([fila, columna]) # [3,5]
             
             # Resto de casillas según la orientación
             # j es el elemento de la eslora iterado
@@ -193,19 +195,23 @@ def disparar_automatizado(tablero_jugador_01, tablero_jugador_02, fila, columna)
     
 # Función que gestiona el inicio de la partida
 def inicio_partida():
+    # Bucle infinito hasta que se cumple una condición 
     while True:
         input("Pulsa Intro para tirar tus dados...\n" \
         "El jugador con la puntuación mas alta iniciará la partida")
 
+        # Número aleatorio para el jugador que representa 2 dados
         num_inicio_jugador = random.randint(1, 12)
 
         print()
         print(f"Has sacado el número {num_inicio_jugador}, espera a que tu rival lance los suyos...")
 
         time.sleep(4)
-
+    
+        # Número aleatorio para el rival que representa 2 dados
         num_inicio_rival = random.randint(1, 12)
 
+        # Condiciones de incio de turno, se retorna la variable turno, que servirá para inciar turno y desarrollar luego la alternancia de turnos
         if num_inicio_jugador > num_inicio_rival:
             print()
             print(f"Tu rival ha sacado el número {num_inicio_rival}, empiezas jugando tú.")
@@ -230,11 +236,15 @@ def jugar_partida(
     tablero_rival_disparos, 
     barcos_rival_total
 ):
+    # Listas para comprobaciones en el turno del jugador
     disparos_acertados_jugador = []
     barcos_hundidos_jugador = []
+
+    # Listas para comprobaciones en el turno del rival
     disparos_acertados_rival = []
     barcos_hundidos_rival = []
 
+    # Bucle infinito hasta que se cumple una condición que lo rompe con un break
     while True:
 
         # TURNO DEL JUGADOR
@@ -243,6 +253,7 @@ def jugar_partida(
             disparo_jugador = input("Dispara introduciendo coordenadas con formato x,y\n")
             disparo_jugador = disparo_jugador.replace("(", "").replace(")", "").replace(" ", "")
 
+            # Aquí se captura la excepctión en caso de que las coordenadas introducidas no cumplan con el formato pedido
             try:
                 x, y = disparo_jugador.split(",")
                 x, y = int(x), int(y)
@@ -250,7 +261,8 @@ def jugar_partida(
                 print()
                 print("Formato de disparo no válido.")
                 continue
-
+            
+            # Valores retornados al llamar a la función de disparo del jugador
             resultado, fila, columna = disparar(tablero_rival, tablero_rival_disparos, x, y)
 
             if resultado == "Tocado":
@@ -289,21 +301,21 @@ def jugar_partida(
                     print()
                     break
 
-                continue  # sigue disparando
+                continue  # sigue disparando, el codigo que sigue no se ejecuta y se vuelve a iniciar el while
 
             elif resultado == "Agua":
                 print()
                 print("Has fallado. Pasa el turno a tu rival.")
                 print()
                 print(tablero_rival_disparos)
-                turno = "rival"
+                turno = "rival" # Se pasa el turno al rival
 
             else:  # Repetir
                 print()
                 print("Ya has disparado aquí, vuelve a disparar.")
                 print()
                 print(tablero_rival_disparos)
-                continue
+                continue # sigue disparando, el codigo que sigue no se ejecuta y se vuelve a iniciar el while
 
         # TURNO DEL RIVAL (EL ORDENADOR)
         if turno == "rival":
@@ -311,12 +323,14 @@ def jugar_partida(
 
             print("\n*** Turno de tu rival ***")
 
+            # bucle infinito que se rompe con el break, se usa para evitar que la máquina introduzca una coordenada ya introducida
             while True:
                 x = random.randint(0, 9)
                 y = random.randint(0, 9)
                 if (x, y) not in disparos_acertados_rival:
-                    break
-
+                    break # Si la corrdenada no existe en la lista de disparos, se rompe el bucle y se sigue con el código
+            
+            # Valores retornados al llamar a la función de disparo del rival
             resultado, fila, columna = disparar_automatizado(tablero_jugador, tablero_jugador_disparos, x, y)
 
             if resultado == "Tocado":
