@@ -27,16 +27,18 @@ def crear_tablero_jugador():
 
     tablero_jugador = tablero()
 
+    # Flota: Plantilla para recorrer cada barco y su longitud
     barcos_plantilla = [[[0,0], [0,0]], 
                         [[0,0], [0,0], [0,0]]]
 
+    # Lista vacia para almacenar los barcos colocados
     barcos_jugador_total = []
 
-    for i in range(len(barcos_plantilla)): # i es el indice de cada barco iterado
-        eslora = len(barcos_plantilla[i])
+    for i in range(len(barcos_plantilla)): # itero sobre la plantilla
+        eslora = len(barcos_plantilla[i]) # saco la eslora
         orientacion = random.choice(["N", "S", "E", "W"])
         
-        # Bucle infinito hasta que se cumple una condición que lo rompe con un break
+        # Bucle infinito hasta que se cumple una condición que lo rompe con un break en caso de que haya o solapamiento
         while True:
 
             # Lista para guardar coordenadas. Si hay solapamiento, se reinicia el while y se vuelve a generar otra
@@ -169,7 +171,7 @@ def crear_tablero_rival():
 
     return tablero_rival, barcos_rival_total
 
-# Función que gestiona los disparos manuales del jugador
+# Función que gestiona los disparos manuales del jugador, parametros pasados en llamada a funcion en la función jugar_partida
 def disparar(tablero_rival_01, tablero_rival_02, fila, columna):
     if tablero_rival_01[fila, columna] == "O":
         print("Tocado")
@@ -182,7 +184,7 @@ def disparar(tablero_rival_01, tablero_rival_02, fila, columna):
         tablero_rival_02[fila, columna] = "#"
         return "Agua", fila, columna
     
-# Función que gestiona los disparos automatizados del rival (el ordenador)
+# Función que gestiona los disparos automatizados del rival (el ordenador) parametros pasados en llamada a funcion en la función jugar_partida
 def disparar_automatizado(tablero_jugador_01, tablero_jugador_02, fila, columna):
     if tablero_jugador_01[fila, columna] == "O":
         print("Tocado")
@@ -263,7 +265,7 @@ def jugar_partida(
                 continue
             
             # Valores retornados al llamar a la función de disparo del jugador
-            resultado, fila, columna = disparar(tablero_rival, tablero_rival_disparos, x, y)
+            resultado, fila, columna = disparar(tablero_rival, tablero_rival_disparos, x, y) # parametros pasados a funcion disparar
 
             if resultado == "Tocado":
                 disparos_acertados_jugador.append([fila, columna])
@@ -331,7 +333,7 @@ def jugar_partida(
                     break # Si la corrdenada no existe en la lista de disparos, se rompe el bucle y se sigue con el código
             
             # Valores retornados al llamar a la función de disparo del rival
-            resultado, fila, columna = disparar_automatizado(tablero_jugador, tablero_jugador_disparos, x, y)
+            resultado, fila, columna = disparar_automatizado(tablero_jugador, tablero_jugador_disparos, x, y) #parametros pasados a funcion disparar_autoomatizado
 
             if resultado == "Tocado":
                 disparos_acertados_rival.append([fila, columna])
