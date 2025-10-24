@@ -266,19 +266,21 @@ def jugar_partida(
                 print(tablero_rival_disparos)
 
                 # Comprobar si algún barco se ha hundido
+                # Se recorre la lista de barcos creada al colocar los barcos en el tablero rival
                 for barco in barcos_rival_total:
-                    coords_barco = []
-                    for coordenada in barco:
-                        coords_barco.append(tuple(coordenada))
-
-                    hundido = True
-                    for c in coords_barco:
-                        if c not in disparos_acertados_jugador:
+                    hundido = True # bandera, se empieza asumiendo que el barco se ha hundido
+                    for coord in barco:
+                        # Se comparan los elementos de la lista de barcos rival, con la lista de disparos acertados
+                        # Si algno no esta se sale del bucle for
+                        if coord not in disparos_acertados_jugador:
                             hundido = False
                             break
-
+                    # Aquí hundido es True y el barco aún no esta en la lista de barcos hundidos
+                    # Se revisa que el barco aún no esta porque al hundir un barco se sigue disparando
+                    # Entonces se vuelve a revisar la lista y se vuelve a imprimir el mensaje si no se comprueba esta condición         
                     if hundido and barco not in barcos_hundidos_jugador:
                         barcos_hundidos_jugador.append(barco)
+                        print()
                         print(f"¡Un barco enemigo de eslora {len(barco)} ha sido hundido!")
                         print()
                         print(tablero_rival_disparos)
@@ -326,18 +328,15 @@ def jugar_partida(
 
                 # Comprobar si algún barco se ha hundido
                 for barco in barcos_jugador_total:
-                    coords_barco = []
-                    for coordenada in barco:
-                        coords_barco.append(tuple(coordenada))
-
                     hundido = True
-                    for c in coords_barco:
-                        if c not in disparos_acertados_rival:
+                    for coord in barco:
+                        if coord not in disparos_acertados_rival:
                             hundido = False
                             break
 
                     if hundido and barco not in barcos_hundidos_rival:
                         barcos_hundidos_rival.append(barco)
+                        print()
                         print("¡Barco hundido de eslora", len(barco), "!")
                         print()
                         print(tablero_jugador_disparos)
