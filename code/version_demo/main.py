@@ -1,9 +1,10 @@
 import funciones as f
 
+# Presentación d elas reglass del juego
 print()
 f.presentacion()
 
-# Crear tableros y barcos
+# Creación de tableros con los barcos colocados
 tablero_jugador, barcos_jugador_total = f.crear_tablero_jugador()
 tablero_rival, barcos_rival_total = f.crear_tablero_rival()
 print()
@@ -20,7 +21,7 @@ tablero_rival_disparos = f.tablero()
 # Decidir quién empieza
 turno = f.inicio_partida()
 
-# Iniciar la partida
+# Iniciar la partida, se pasan como parámetros las variables aanteriores que almacenan los resultados del resto de funciones
 f.jugar_partida(
     turno,
     tablero_jugador,
